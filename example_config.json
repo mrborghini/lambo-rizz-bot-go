@@ -1,0 +1,11 @@
+{
+    "Nickname": "yourtwitchbotsname",
+    "OAuth": "getyourOAuthToken",
+    "Channels": [
+        "channel1",
+        "channel2",
+        "channel3",
+        "channel4",
+        "add as many as you like"
+    ]
+}
