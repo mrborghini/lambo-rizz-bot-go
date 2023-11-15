@@ -4,6 +4,7 @@ import (
 	"strings"
 )
 
+// Only get the channel name
 func GetChannel(message string) string {
 	splitMessage := strings.Fields(message)
 	if len(splitMessage) > 2 {
@@ -12,6 +13,7 @@ func GetChannel(message string) string {
 	return ""
 }
 
+// Only get the username
 func GetUsername(message string) string {
 	result := "@"
 	splitAt := strings.Split(message, "@")
@@ -24,6 +26,7 @@ func GetUsername(message string) string {
 	return ""
 }
 
+// Only get the message
 func GetMessage(message string) string {
 	splitMessage := strings.Split(message, ":")
 	if len(splitMessage) > 2 {
