@@ -57,4 +57,4 @@ Congratulations you should now have a lambo-rizz-bot-go executable. If you're Li
 
 On linux if it doesn't run please run ```chmod +x lambo-rizz-bot-go```
 
-Make 100% sure you have the generated a access token with reading chat privileges and send messages
+Make 100% sure you have the generated an access token with reading chat privileges and send messages
