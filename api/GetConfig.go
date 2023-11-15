@@ -27,5 +27,7 @@ func GetConfig() TwitchData {
 		log.Error(fmt.Sprintf("Error parsing JSON file: %f", err))
 		os.Exit(1)
 	}
+
+	
 	return config
 }

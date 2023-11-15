@@ -3,12 +3,18 @@ package main
 import (
 	"fmt"
 	"lambo-rizz-bot-go/api"
+	"os"
 )
 
 func main() {
 	log := api.NewLogger("main")
 
 	config := api.GetConfig()
+
+	if len(config.OAuth) != 30 {
+		log.Error("Invalid OAuth token")
+		os.Exit(1)
+	}
 
 	tc := api.NewTwitchChat(config.Nickname, config.OAuth)
 
