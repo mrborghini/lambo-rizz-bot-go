@@ -17,7 +17,7 @@ func GetConfig() TwitchData {
 	jsonData, err := os.ReadFile("config.json")
 	if err != nil {
 		log.Error(fmt.Sprintf("Error reading JSON file: %f", err))
-		return TwitchData{}
+		os.Exit(1)
 	}
 	
 	var config TwitchData
@@ -25,7 +25,7 @@ func GetConfig() TwitchData {
 	err = json.Unmarshal(jsonData, &config)
 	if err != nil {
 		log.Error(fmt.Sprintf("Error parsing JSON file: %f", err))
-		return TwitchData{}
+		os.Exit(1)
 	}
 	return config
 }
