@@ -145,6 +145,10 @@ func (tc *TwitchChat) StartListeningForMessages() {
 			tc.log.Error(fmt.Sprintf("Error receiving message: %s", err))
 			os.Exit(1)
 		}
+		if tc.conn == nil {
+			tc.log.Error("WebSocket connection is nil")
+			os.Exit(1)
+		}
 
 		switch true {
 		// When twitch sends PING respond with PONG
