@@ -6,7 +6,6 @@ import (
 	"os"
 	"strings"
 	"sync"
-
 	"github.com/gorilla/websocket"
 )
 

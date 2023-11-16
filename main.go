@@ -7,8 +7,15 @@ import (
 )
 
 func main() {
+	// Set version of the application
+	const version = "v0.3"
+
 	// Start a new logger
 	log := api.NewLogger("main")
+
+	// Show version
+
+	log.Info(fmt.Sprintf("You're running version: %s", version))
 
 	// Get the twitch info from config.json
 	config := api.GetConfig()
