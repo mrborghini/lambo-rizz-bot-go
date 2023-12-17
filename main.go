@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"lambo-rizz-bot-go/api"
+	"lambo-rizz-bot-go/components"
 	"os"
 )
 
