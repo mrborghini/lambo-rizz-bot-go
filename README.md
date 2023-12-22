@@ -29,7 +29,7 @@ Clone the repository:
 Change directory into the repository ```cd lambo-rizz-bot-go```
 
 Run the command:
-```go get lambo-rizz-bot-go/api```
+```go get lambo-rizz-bot-go/components```
 
 
 Generate access tokens:

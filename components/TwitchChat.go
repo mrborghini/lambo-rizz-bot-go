@@ -58,7 +58,7 @@ func (tc *TwitchChat) ConnectAsync() {
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		tc.log.Error(fmt.Sprintf("Error connecting to Twitch IRC: %s", err))
-		return
+		os.Exit(1)
 	}
 
 	// Add connection to the property
@@ -74,22 +74,23 @@ func (tc *TwitchChat) ConnectAsync() {
 	sendOAuth := fmt.Sprintf("PASS oauth:%s", tc.oAuth)
 	if err := tc.conn.WriteMessage(websocket.TextMessage, []byte(sendOAuth)); err != nil {
 		tc.log.Error(fmt.Sprintf("Error sending OAuth credentials: %s", err))
-		return
+		os.Exit(1)
 	}
 
 	// Send the bot's name to Twitch
 	sendNickname := fmt.Sprintf("NICK %s", tc.nickname)
 	if err := tc.conn.WriteMessage(websocket.TextMessage, []byte(sendNickname)); err != nil {
 		tc.log.Error(fmt.Sprintf("Error sending nickname: %s", err))
-		return
+		os.Exit(1)
 	}
 
 	// Join all the channels in the channel list
 	for _, channel := range tc.channels {
 		joinChannel := fmt.Sprintf("JOIN #%s", channel)
+		tc.log.Info(fmt.Sprintf("Joined channel: %s", channel));
 		if err := tc.conn.WriteMessage(websocket.TextMessage, []byte(joinChannel)); err != nil {
 			tc.log.Error(fmt.Sprintf("Error joining channel %s: %s", channel, err))
-			return
+			os.Exit(1)
 		}
 	}
 
@@ -103,7 +104,7 @@ func (tc *TwitchChat) SendPrivMSG(message string, channel string) {
 	sendmessage := fmt.Sprintf("PRIVMSG %s :%s", channel, message)
 	if err := tc.conn.WriteMessage(websocket.TextMessage, []byte(sendmessage)); err != nil {
 		tc.log.Error(fmt.Sprintf("Error joining channel %s: %s", channel, err))
-		return
+		os.Exit(1)
 	}
 }
 
@@ -115,7 +116,7 @@ func (tc *TwitchChat) SendTwitchFunc(message string) {
 	sendmessage := message
 	if err := tc.conn.WriteMessage(websocket.TextMessage, []byte(sendmessage)); err != nil {
 		tc.log.Error(fmt.Sprintf("Error joining channel %s", err))
-		return
+		os.Exit(1)
 	}
 }
 
@@ -140,11 +141,18 @@ func (tc *TwitchChat) ReceiveSingleMessage() (string, error) {
 func (tc *TwitchChat) StartListeningForMessages() {
 	for {
 		message, err := tc.ReceiveSingleMessage()
+
+		// Check if oauth token is valid
+		if strings.TrimSpace(message) == ":tmi.twitch.tv NOTICE * :Login authentication failed" {
+			tc.log.Error("Invalid oauth token");
+			os.Exit(1)
+		}
+
 		if err != nil {
 			tc.log.Error(fmt.Sprintf("Error receiving message: %s", err))
 			os.Exit(1)
 		}
-		if tc.conn == nil {
+		if tc.conn == nil || message == "" {
 			tc.log.Error("WebSocket connection is nil")
 			os.Exit(1)
 		}
