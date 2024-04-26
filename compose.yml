@@ -1,0 +1,5 @@
+services:
+  lambo-rizz-bot-go:
+    build:
+      context: .
+    restart: unless-stopped

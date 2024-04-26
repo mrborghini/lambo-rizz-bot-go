@@ -1,0 +1,6 @@
+.git*
+README*
+*.log
+example_config.json
+lambo-rizz-bot-go*
+LICENSE
