@@ -1,5 +1,6 @@
 {
-    "Nickname": "lamborizzbot",
-    "OAuth": "YourAccessToken",
-    "Channels": ["mrborghini_", "lamborizzbot"]
+    "nickname": "lamborizzbot",
+    "oAuth": "YourAccessToken",
+    "writeLogs": false,
+    "channels": ["mrborghini_", "lamborizzbot"]
 }

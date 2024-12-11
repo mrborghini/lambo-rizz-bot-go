@@ -8,7 +8,7 @@ import (
 
 func main() {
 	// Set version of the application
-	const version = "v0.4"
+	const version = "v0.5"
 
 	// Start a new logger
 	log := api.NewLogger("main")

@@ -8,14 +8,15 @@ import (
 
 // Get the required data from config.json
 type TwitchData struct {
-	Nickname string   `json:"Nickname"`
-	OAuth    string   `json:"OAuth"`
-	Channels []string `json:"Channels"`
+	Nickname  string   `json:"nickname"`
+	OAuth     string   `json:"oAuth"`
+	WriteLogs bool     `json:"writeLogs"`
+	Channels  []string `json:"channels"`
 }
 
 // Parse config.json
 func GetConfig() TwitchData {
-	log := NewLogger("GetConfig");
+	log := NewLogger("GetConfig")
 	jsonData, err := os.ReadFile("config.json")
 
 	// Check if json file exists
@@ -23,7 +24,7 @@ func GetConfig() TwitchData {
 		log.Error(fmt.Sprintf("Couldn't open config.json. Did you name it correctly? %f", err))
 		os.Exit(1)
 	}
-	
+
 	var config TwitchData
 
 	err = json.Unmarshal(jsonData, &config)
@@ -34,6 +35,9 @@ func GetConfig() TwitchData {
 		os.Exit(1)
 	}
 
-	
+	if config.WriteLogs {
+		os.Setenv("WRITE_LOGS", "true")
+	}
+
 	return config
 }

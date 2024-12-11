@@ -43,7 +43,9 @@ func (l *Logger) log(level, message string) {
 
 	fmt.Println(finalMessage)
 
-	l.logToFile(finalMessage)
+	if os.Getenv("WRITE_LOGS") == "true" {
+		l.logToFile(finalMessage)
+	}
 }
 
 // log something with a custom level and any message
